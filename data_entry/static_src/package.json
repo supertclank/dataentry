@@ -1,0 +1,19 @@
+{
+  "name": "static_src",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "config": {
+    "src_css": "sass",
+    "dest_css": "../static_compiled/css"
+  },
+  "scripts": {
+    "compile:css": "node-sass -w -o ../static_compiled/css sass --output-style compressed --source-map true"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bootstrap": "^5.3.2",
+    "node-sass": "^9.0.0"
+  }
+}

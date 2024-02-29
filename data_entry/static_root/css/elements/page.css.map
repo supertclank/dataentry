@@ -1,0 +1,9 @@
+{
+	"version": 3,
+	"file": "page.css",
+	"sources": [
+		"../../../static_src/sass/elements/page.scss"
+	],
+	"names": [],
+	"mappings": "AAAA,AAAA,IAAI,AAAA,CACA,SAAS,CAAE,IAAI,CAClB,AACD,AAAA,IAAI,AAAA,CACA,UAAU,CAAE,qBAAqB,CACjC,KAAK,CAAE,OAAO,CACjB,AACD,AAAA,MAAM,AAAA,CACF,UAAU,CAAE,OAAO,CACnB,KAAK,CAAE,OAAO,CACjB"
+}
