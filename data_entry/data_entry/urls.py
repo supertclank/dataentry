@@ -2,11 +2,13 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
+from django.shortcuts import redirect
 
 from front_end import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', lambda request: redirect('login')),  # Redirect root URL to login page
     path('', include('django.contrib.auth.urls')),
     path('dashboard/', views.dashboard, name='dashboard'), 
     path('my_account/', views.my_account, name='my_account'),  

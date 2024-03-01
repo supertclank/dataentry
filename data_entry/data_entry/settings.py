@@ -141,4 +141,7 @@ STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 ]
 
-LOGIN_REDIRECT_URL = "dashboard" 
+LOGIN_REDIRECT_URL = "dashboard"
+LOGOUT_REDIRECT_URL = "login"
+
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"

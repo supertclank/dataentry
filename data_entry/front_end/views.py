@@ -1,12 +1,10 @@
-from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
+from django.shortcuts import redirect
 from django.http import HttpResponse
 from django.template import loader
 
 def index(request):
-    template = loader.get_template('index.html')
-    context = {}
-    return HttpResponse(template.render(context, request)) 
+    
+     return redirect('registration\login.html')
 
 def dashboard (request):
     template = loader.get_template('dashboard.html')
