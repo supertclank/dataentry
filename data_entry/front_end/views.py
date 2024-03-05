@@ -1,6 +1,7 @@
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 from django.http import HttpResponse
 from django.template import loader
+from models.models import Job
 
 def index(request):
     
@@ -55,10 +56,11 @@ def manage_categories (request):
     )
     
 def manage_jobs (request):
+    Job_list = Job.objects.all()
     template = loader.get_template('manage_jobs.html')
-    context = {}
-    return HttpResponse(template.render(context, request)
-    )
+    context = {'Job_list': Job_list}
+    return HttpResponse(template.render(context, request))
+    
     
 def manage_job (request):
     return HttpResponse(

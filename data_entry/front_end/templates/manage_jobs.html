@@ -1,11 +1,22 @@
-{% load static %}
 <title>Manage Jobs</title>
 
 {% include "..\templates\base\navbar.html" %}
      <br>
      <h1 class="text-center">Manage Jobs</h1>
-    
-    
-
+   
+     {% for Job in Job_list %}
+     <br>
+     <div class="card container">
+          <div class="card-header">
+               {{Job.Job_Name}}
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">{{Job.Job_Description}}</h5>
+            <p class="card-text">Created On The {{Job.Created_Date}}</p>
+            <a href="#" class="btn btn-primary">Edit Job</a>
+          </div>
+        </div>
+        <br>
+        {% endfor %}
 
 {%include "..\templates\base\footer.html"%}
