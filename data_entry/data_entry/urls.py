@@ -8,7 +8,7 @@ from front_end import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', lambda request: redirect('login')),  # Redirect root URL to login page
+    path('', lambda request: redirect('login')),
     path('', include('django.contrib.auth.urls')),
     path('dashboard/', views.dashboard, name='dashboard'), 
     path('my_account/', views.my_account, name='my_account'),  
@@ -23,6 +23,7 @@ urlpatterns = [
     path('manage_job/', views.manage_job, name='manage_job'),  
     path('manage_roles/', views.manage_roles, name='manage_roles'),  
     path('manage_role/', views.manage_role, name='manage_role'),  
+    path('password_reset/', lambda request: redirect('reset_password')),
 ]
 
 if settings.DEBUG:

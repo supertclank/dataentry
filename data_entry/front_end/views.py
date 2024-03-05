@@ -1,11 +1,11 @@
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect
 from django.http import HttpResponse
 from django.template import loader
 from models.models import Job
 
 def index(request):
     
-     return redirect('registration\login.html')
+    return redirect('registration\login.html')
 
 def dashboard (request):
     template = loader.get_template('dashboard.html')
@@ -76,4 +76,17 @@ def manage_role (request):
     return HttpResponse(
         
     )
+def password_reset_form (request):
+    template = loader.get_template('password_reset_form.html')
+    context = {}
+    return HttpResponse(template.render(context, request))
 
+def password_reset_done (request):
+    template = loader.get_template('password_reset_done.html')
+    context = {}
+    return HttpResponse(template.render(context, request))
+
+def password_reset_confirm (request):
+    template = loader.get_template('password_reset_confirm.html')
+    context = {}
+    return HttpResponse(template.render(context, request))
