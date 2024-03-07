@@ -3,3 +3,10 @@ header{
     color: #1d1d1d;
     font-size: 100%;
 }
+.navbar-nav .nav-link {
+    padding-right: 1rem;
+    padding-left: 1rem;
+}
+.navbar-nav {
+    margin-right: auto; /* Pushes logout button to the right */
+}

@@ -63,8 +63,9 @@ def manage_jobs (request):
     
     
 def manage_job (request):
-    return HttpResponse(
-        
+    template = loader.get_template('manage_job.html')
+    context = {}
+    return HttpResponse(template.render(context, request)
     )
     
 def manage_roles (request):

@@ -4,9 +4,11 @@ html{
 body{
     background: rgb(230, 230, 230) !important;
     color: #1d1d1d;
-    padding-bottom: 70%;
 }
 footer{
-    background: #00ABE4;
+    background: #00aee8;
     color: #1d1d1d;
+}
+.content{
+    min-height: calc(100vh - 88px);
 }

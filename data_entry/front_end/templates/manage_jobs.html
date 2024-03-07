@@ -1,12 +1,26 @@
-<title>Manage Jobs</title>
+{% extends "master.html" %}
 
-{% include "..\templates\base\navbar.html" %}
-     <br>
-     <h1 class="text-center">Manage Jobs</h1>
-   
+{% block title %}
+  Manage Jobs
+{% endblock %}
+
+{% block content %}
+    
+<div class="container row"> 
+     <h1 class="text-start col-8">Manage Jobs</h1>
+<div class="">
+     <a href="{% url 'manage_job' %}">
+          <button type="button" class="btn btn-primary col-2">Add New Job</button>
+     </a>
+
+     <a>
+          <button type="button" class="btn btn-primary col-2">Filter</button>
+     </a>
+</div>
+</div>
+<div>
      {% for Job in Job_list %}
-     <br>
-     <div class="card container">
+     <div class="card container my-4">
           <div class="card-header">
                {{Job.Job_Name}}
           </div>
@@ -16,8 +30,6 @@
             <a href="#" class="btn btn-primary">Edit Job</a>
           </div>
         </div>
-     </div>
-        <br>
         {% endfor %}
-
-{%include "..\templates\base\footer.html"%}
+</div>        
+{% endblock %}
