@@ -19,11 +19,13 @@ urlpatterns = [
     path('manage_documents/', views.manage_documents, name='manage_documents'),  
     path('manage_documents_packs/', views.manage_documents_packs, name='manage_documents_packs'),  
     path('manage_categories/', views.manage_categories, name='manage_categories'),
-    path('manage_jobs/', views.manage_jobs, name='manage_jobs'),  
-    path('manage_job/', views.manage_job, name='manage_job'),  
+    path('manage_jobs/', views.manage_jobs, name='manage_jobs'),    
     path('manage_roles/', views.manage_roles, name='manage_roles'),  
     path('manage_role/', views.manage_role, name='manage_role'),  
     path('password_reset/', lambda request: redirect('reset_password')),
+    path('new_job/', views.new_job.as_view(), name='new_job'),
+    path('edit_job/<int:job_id>/', views.edit_job, name='edit_job'),
+    path('update_job/<int:job_id>/', views.update_job, name='update_job'),
 ]
 
 if settings.DEBUG:

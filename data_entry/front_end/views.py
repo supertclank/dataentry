@@ -1,7 +1,9 @@
-from django.shortcuts import redirect
+from django.shortcuts import get_object_or_404, redirect, render
 from django.http import HttpResponse
 from django.template import loader
 from models.models import Job
+from django.views.generic.edit import CreateView
+from data_entry.form import JobForm
 
 def index(request):
     
@@ -55,18 +57,46 @@ def manage_categories (request):
         
     )
     
-def manage_jobs (request):
-    Job_list = Job.objects.all()
+def manage_jobs(request):
+    job_list = Job.objects.all()
+
+    if request.method == 'GET':
+        job_name = request.GET.get('job_name')
+        job_description = request.GET.get('job_description')
+        date = request.GET.get('date')
+
+        if job_name:
+            job_list = job_list.filter(Job_Name__icontains=job_name)
+        if job_description:
+            job_list = job_list.filter(Job_Description__icontains=job_description)
+        if date:
+            job_list = job_list.filter(Created_Date=date)
+
+    context = {'job_list': job_list}
+    
     template = loader.get_template('manage_jobs.html')
-    context = {'Job_list': Job_list}
     return HttpResponse(template.render(context, request))
+       
+def edit_job(request, JobID):
+    job = get_object_or_404(Job, id=JobID)
+    return render(request, 'edit_job.html', {'job': job})
+
+def update_job(request, JobID):
+    if request.method == 'POST':
+        job = Job.objects.get(id=JobID)
+        job.Job_Name = request.POST['job_name']
+        job.Job_Description = request.POST['job_description']
+        job.save()
+        return redirect('manage_jobs')
     
+class new_job(CreateView):
+    model = Job
+    fields = ['Job_Name', 'Job_Description', 'Created_Date']
+    template_name = 'new_job.html'
     
-def manage_job (request):
-    template = loader.get_template('manage_job.html')
-    context = {}
-    return HttpResponse(template.render(context, request)
-    )
+    def form_valid(self, form):
+        self.object = form.save()
+        return redirect('manage_jobs')
     
 def manage_roles (request):
     return HttpResponse(
