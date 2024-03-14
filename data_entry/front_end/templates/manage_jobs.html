@@ -51,7 +51,7 @@
           <div class="card-body">
             <h5 class="card-title">{{ job.Job_Description }}</h5>
             <p class="card-text">Created On The {{ job.Created_Date }}</p>
-            <a href="{% url 'edit_job' JobID %}" class="btn btn-primary">Edit Job</a>
+            <a href="{% url 'edit_job' JobID=job.JobID %}" class="btn btn-primary">Edit Job</a>
           </div>
         </div>
         {% endfor %}

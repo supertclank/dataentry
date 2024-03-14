@@ -78,12 +78,12 @@ def manage_jobs(request):
     return HttpResponse(template.render(context, request))
        
 def edit_job(request, JobID):
-    job = get_object_or_404(Job, id=JobID)
+    job = get_object_or_404(Job, JobID=JobID)
     return render(request, 'edit_job.html', {'job': job})
 
 def update_job(request, JobID):
     if request.method == 'POST':
-        job = Job.objects.get(id=JobID)
+        job = Job.objects.get(JobID=JobID)
         job.Job_Name = request.POST['job_name']
         job.Job_Description = request.POST['job_description']
         job.save()

@@ -24,8 +24,9 @@ urlpatterns = [
     path('manage_role/', views.manage_role, name='manage_role'),  
     path('password_reset/', lambda request: redirect('reset_password')),
     path('new_job/', views.new_job.as_view(), name='new_job'),
-    path('edit_job/<int:job_id>/', views.edit_job, name='edit_job'),
-    path('update_job/<int:job_id>/', views.update_job, name='update_job'),
+    path('edit-job/<int:JobID>/', views.edit_job, name='edit_job'),
+    path('update-job/<int:job_id>/', views.update_job, name='update_job'),
+
 ]
 
 if settings.DEBUG:
