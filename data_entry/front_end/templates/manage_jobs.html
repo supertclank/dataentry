@@ -6,54 +6,51 @@
 
 {% block content %}
 <div class="container center-container mt-3">
-     <div class="row mx-3">
-         <h1 class="text-start col-8">Manage Jobs</h1>
-         <div class="col-4 d-flex justify-content-end">
-             <a href="{% url 'new_job' %}">
-                 <button type="button" class="btn btn-primary">Add New Job</button>
-             </a>
-             <button class="btn btn-primary ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                 Filter
-             </button>
-         </div>
-     </div>
-     <div class="collapse my-1" id="collapseExample">
-         <div class="card card-body">
-             <form id="filterForm">
-                 <div class="mb-3">
-                     <label for="jobsearchInput" class="form-label">Job Name</label>
-                     <input type="text" class="form-control" id="jobsearchInput" name="job_name" placeholder="Enter Job Name">
-                 </div>
+    <div class="row mx-3">
+        <h1 class="text-start col-8">Manage Jobs</h1>
+        <div class="col-4 d-flex justify-content-end">
+            <a href="{% url 'new_job' %}">
+                <button type="button" class="btn btn-primary me-2">Add New Job</button>
+            </a>
+            <button type="button" class="btn btn-primary pe-2" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Filter</button>
+        </div>
+    </div>
+    <div class="collapse my-1" id="collapseExample">
+        <div class="card card-body">
+            <form id="filterForm">
+                <div class="mb-3">
+                    <label for="jobsearchInput" class="form-label">Job Name</label>
+                    <input type="text" class="form-control" id="jobsearchInput" name="job_name" placeholder="Enter Job Name">
+                </div>
 
-                 <div class="mb-3">
+                <div class="mb-3">
                     <label for="jobdescriptionsearchInput" class="form-label">Job Description</label>
                     <input type="text" class="form-control" id="jobdescriptionsearchInput" name="job_description" placeholder="Enter Job Description">
                 </div>
-                 
-                 <div class="mb-3">
-                     <label for="dateInput" class="form-label">Date</label>
-                     <input type="date" class="form-control" id="dateInput" name="date">
-                 </div>
-                 <button type="submit" class="btn btn-primary">Apply Filter</button>
-                 <button type="submit" class="btn btn-danger">Reset Filter</button>
-             </form>
-         </div>
-     </div>
- </div>
- 
+
+                <div class="mb-3">
+                    <label for="dateInput" class="form-label">Date</label>
+                    <input type="date" class="form-control" id="dateInput" name="date">
+                </div>
+                <button type="submit" class="btn btn-primary">Apply Filter</button>
+                <button type="submit" class="btn btn-danger">Reset Filter</button>
+            </form>
+        </div>
+    </div>
+</div>
 
 <div id="jobList">
-     {% for job in job_list %}
-     <div class="job-card card container my-4">
-          <div class="card-header">
-               {{ job.Job_Name }}
-          </div>
-          <div class="card-body">
+    {% for job in job_list %}
+    <div class="job-card card container my-4">
+        <div class="card-header">
+            {{ job.Job_Name }}
+        </div>
+        <div class="card-body">
             <h5 class="card-title">{{ job.Job_Description }}</h5>
             <p class="card-text">Created On The {{ job.Created_Date }}</p>
             <a href="{% url 'edit_job' JobID=job.JobID %}" class="btn btn-primary">Edit Job</a>
-          </div>
         </div>
-        {% endfor %}
-</div>        
+    </div>
+    {% endfor %}
+</div>
 {% endblock %}
