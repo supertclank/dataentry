@@ -1,9 +1,10 @@
 from django.shortcuts import get_object_or_404, redirect, render
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.template import loader
-from models.models import Job
+from models.models import Job, Document, User
 from django.views.generic.edit import CreateView
-from data_entry.form import JobForm
+
+
 
 def index(request):
     return redirect('registration\login.html')
@@ -19,12 +20,54 @@ def my_account(request):
     return HttpResponse(template.render(context, request))
 
 def manage_employees(request):
+    employee_list = User.objects.all()
+
+    # Filtering logic
+    if request.method == 'GET':
+        first_name = request.GET.get('first_name')
+        last_name = request.GET.get('last_name')
+        email = request.GET.get('email')
+
+        if first_name:
+            employee_list = employee_list.filter(First_Name__icontains=first_name)
+        if last_name:
+            employee_list = employee_list.filter(Last_Name__icontains=last_name)
+        if email:
+            employee_list = employee_list.filter(Email_address__icontains=email)
+
+    context = {'employee_list': employee_list}
     template = loader.get_template('manage_employees.html')
-    context = {}
     return HttpResponse(template.render(context, request))
 
-def manage_employee(request):
-    return HttpResponse()
+def edit_employee(request, UserID):
+    employee = get_object_or_404(User, UserID=UserID)
+    return render(request, 'edit_employee.html', {'employee': employee})
+
+def update_employee(request, UserID):
+    employee = get_object_or_404(User, UserID=UserID)
+    if request.method == 'POST':
+        form = EmployeeForm(request.POST, instance=employee)
+        if form.is_valid():
+            form.save()
+            return redirect('manage_employees')
+    else:
+        form = EmployeeForm(instance=employee)
+    return render(request, 'edit_employee.html', {'form': form})
+
+def delete_employee(request, UserID):
+    if request.method == 'POST':
+        employee = get_object_or_404(User, UserID=UserID)
+        employee.delete()
+        return redirect('manage_employees')
+
+class NewEmployee(CreateView):
+    model = User
+    template_name = 'new_employee.html'
+    fields = ['First_Name', 'Last_Name', 'DOB', 'Address_One', 'Address_Two', 'City', 'County', 'Postcode', 'Email_address', 'Contact_Number']
+    
+    def form_valid(self, form):
+        self.object = form.save()
+        return redirect('manage_employees')
 
 def manage_contracts(request):
     return HttpResponse()
@@ -33,9 +76,50 @@ def manage_contract(request):
     return HttpResponse()
 
 def manage_documents(request):
+    document_list = Document.objects.all()
+
+    if request.method == 'GET':
+        name = request.GET.get('name')
+        description = request.GET.get('description')
+        date = request.GET.get('date')
+
+        if name:
+            document_list = document_list.filter(Name__icontains=name)
+        if description:
+            document_list = document_list.filter(Description__icontains=description)
+        if date:
+            document_list = document_list.filter(Created_Date=date)
+
+    context = {'document_list': document_list}
     template = loader.get_template('manage_documents.html')
-    context = {}
     return HttpResponse(template.render(context, request))
+
+def edit_document(request, DocumentID):
+    document = get_object_or_404(Document, DocumentID=DocumentID)
+    return render(request, 'edit_documents.html', {'document': document})
+
+def update_document(request, DocumentID):
+    if request.method == 'POST':
+        document = Document.objects.get(DocumentID=DocumentID)
+        document.Name = request.POST['name']
+        document.Description = request.POST['description']
+        document.save()
+        return redirect('manage_documents')
+
+def delete_document(request, DocumentID):
+    if request.method == 'POST':
+        document = get_object_or_404(Document, DocumentID=DocumentID)
+        document.delete()
+        return redirect('manage_documents')
+
+class new_document(CreateView):
+    model = Document
+    fields = ['Name', 'Description', 'path', 'Type_E']
+    template_name = 'new_document.html'
+    
+    def form_valid(self, form):
+        self.object = form.save()
+        return redirect('manage_documents')
 
 def manage_documents_packs(request):
     return HttpResponse()

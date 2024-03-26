@@ -3,8 +3,8 @@ from datetime import date
 
 class User(models.Model):
     UserID = models.AutoField(primary_key=True)
-    JobID = models.ForeignKey('Job', on_delete=models.CASCADE)
-    RoleID = models.ForeignKey('Role', on_delete=models.CASCADE)
+    #JobID = models.ForeignKey('Job', on_delete=models.CASCADE)
+    #RoleID = models.ForeignKey('Role', on_delete=models.CASCADE)
     
     #Created_By_User = models.ForeignKey('User', on_delete=models.CASCADE, related_name='created_by')
     Created_Date = models.DateField(default=date.today)
@@ -91,7 +91,7 @@ class DocumentPackItem(models.Model):
 
 class Document(models.Model):
     DocumentID = models.AutoField(primary_key=True)
-    UserID = models.ForeignKey(User, on_delete=models.CASCADE)
+    #UserID = models.ForeignKey(User, on_delete=models.CASCADE)
     Created_Date = models.DateField(default=date.today)
     Updated_Date = models.DateField(default=date.today)
     Name = models.CharField(max_length=255)

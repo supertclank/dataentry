@@ -1,0 +1,98 @@
+{% extends "master.html" %}
+
+{% block title %}
+  Edit Employee
+{% endblock %}
+
+{% block content %}
+<div class="container center-container mt-3">
+    <h1 class="text-center">Edit Employee</h1>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card my-4">
+                <div class="card-body">
+                    <h2>Edit Employee</h2>
+                    <form method="POST" action="{% url 'update_employee' employee.UserID %}">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="id_first_name">First Name:</label>
+                            <input type="text" name="first_name" id="id_first_name" class="form-control" value="{{ employee.First_Name }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="id_last_name">Last Name:</label>
+                            <input type="text" name="last_name" id="id_last_name" class="form-control" value="{{ employee.Last_Name }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="id_dob">Date of Birth:</label>
+                            <input type="date" name="dob" id="id_dob" class="form-control" value="{{ employee.DOB }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="id_address_one">Address One:</label>
+                            <input type="text" name="address_one" id="id_address_one" class="form-control" value="{{ employee.Address_One }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="id_address_two">Address Two:</label>
+                            <input type="text" name="address_two" id="id_address_two" class="form-control" value="{{ employee.Address_Two }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="id_city">City:</label>
+                            <input type="text" name="city" id="id_city" class="form-control" value="{{ employee.City }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="id_county">County:</label>
+                            <input type="text" name="county" id="id_county" class="form-control" value="{{ employee.County }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="id_postcode">Postcode:</label>
+                            <input type="text" name="postcode" id="id_postcode" class="form-control" value="{{ employee.Postcode }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="id_email">Email Address:</label>
+                            <input type="email" name="email" id="id_email" class="form-control" value="{{ employee.Email_address }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="id_contact_number">Contact Number:</label>
+                            <input type="text" name="contact_number" id="id_contact_number" class="form-control" value="{{ employee.Contact_Number }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="id_password">Password:</label>
+                            <input type="password" name="password" id="id_password" class="form-control">
+                        </div>
+
+                        <div class="mt-2 d-flex justify-content-between">
+                            <div>
+                                <button type="submit" class="btn btn-primary me-2">Save</button>
+                                <a href="{% url 'manage_employees' %}" class="btn btn-secondary">Cancel</a>
+                            </div>
+                            <div>
+                                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Confirm Deletion</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete this employee?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <form method="POST" action="{% url 'delete_employee' employee.UserID %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

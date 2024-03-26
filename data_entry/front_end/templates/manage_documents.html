@@ -5,5 +5,52 @@
 {% endblock %}
 
 {% block content %}
+<div class="container center-container mt-3">
+    <div class="row mx-3">
+        <h1 class="text-start col-8">Manage Documents</h1>
+        <div class="col-4 d-flex justify-content-end">
+            <a href="{% url 'new_document' %}">
+                <button type="button" class="btn btn-primary me-2">Add New Document</button>
+            </a>
+            <button type="button" class="btn btn-primary pe-2" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Filter</button>
+        </div>
+    </div>
+    <div class="collapse my-1" id="collapseExample">
+        <div class="card card-body">
+            <form id="filterForm">
+                <div class="mb-3">
+                    <label for="documentNameInput" class="form-label">Document Name</label>
+                    <input type="text" class="form-control" id="documentNameInput" name="name" placeholder="Enter Document Name">
+                </div>
 
+                <div class="mb-3">
+                    <label for="documentDescriptionInput" class="form-label">Document Description</label>
+                    <input type="text" class="form-control" id="documentDescriptionInput" name="description" placeholder="Enter Document Description">
+                </div>
+
+                <div class="mb-3">
+                    <label for="dateInput" class="form-label">Date</label>
+                    <input type="date" class="form-control" id="dateInput" name="date">
+                </div>
+                <button type="submit" class="btn btn-primary">Apply Filter</button>
+                <button type="submit" class="btn btn-danger">Reset Filter</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div id="documentList">
+    {% for document in document_list %}
+    <div class="document-card card container my-4">
+        <div class="card-header">
+            {{ document.Name }}
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">{{ document.Description }}</h5>
+            <p class="card-text">Created On: {{ document.Created_Date }}</p>
+            <a href="{% url 'edit_document' DocumentID=document.DocumentID %}" class="btn btn-primary">Edit Document</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
 {% endblock %}
