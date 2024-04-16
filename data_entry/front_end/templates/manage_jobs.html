@@ -1,16 +1,16 @@
 {% extends "master.html" %}
 
 {% block title %}
-  Manage Documents
+  Manage Jobs
 {% endblock %}
 
 {% block content %}
 <div class="container center-container mt-3">
     <div class="row mx-3">
-        <h1 class="text-start col-8">Manage Documents</h1>
+        <h1 class="text-start col-8">Manage Jobs</h1>
         <div class="col-4 d-flex justify-content-end">
-            <a href="{% url 'new_document' %}">
-                <button type="button" class="btn btn-primary me-2">Add New Document</button>
+            <a href="{% url 'new_job' %}">
+                <button type="button" class="btn btn-primary me-2">Add New Job</button>
             </a>
             <button type="button" class="btn btn-primary pe-2" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Filter</button>
         </div>
@@ -19,13 +19,13 @@
         <div class="card card-body">
             <form id="filterForm">
                 <div class="mb-3">
-                    <label for="documentNameInput" class="form-label">Document Name</label>
-                    <input type="text" class="form-control" id="documentNameInput" name="name" placeholder="Enter Document Name">
+                    <label for="jobsearchInput" class="form-label">Job Name</label>
+                    <input type="text" class="form-control" id="jobsearchInput" name="job_name" placeholder="Enter Job Name">
                 </div>
 
                 <div class="mb-3">
-                    <label for="documentDescriptionInput" class="form-label">Document Description</label>
-                    <input type="text" class="form-control" id="documentDescriptionInput" name="description" placeholder="Enter Document Description">
+                    <label for="jobdescriptionsearchInput" class="form-label">Job Description</label>
+                    <input type="text" class="form-control" id="jobdescriptionsearchInput" name="job_description" placeholder="Enter Job Description">
                 </div>
 
                 <div class="mb-3">
@@ -39,16 +39,16 @@
     </div>
 </div>
 
-<div id="documentList">
-    {% for document in document_list %}
-    <div class="document-card card container my-4">
+<div id="jobList">
+    {% for job in job_list %}
+    <div class="job-card card container my-4">
         <div class="card-header">
-            {{ document.Name }}
+            {{ job.Job_Name }}
         </div>
         <div class="card-body">
-            <h5 class="card-title">{{ document.Description }}</h5>
-            <p class="card-text">Created On: {{ document.Created_Date }}</p>
-            <a href="{% url 'edit_document' DocumentID=document.DocumentID %}" class="btn btn-primary">Edit Document</a>
+            <h5 class="card-title">{{ job.Job_Description }}</h5>
+            <p class="card-text">Created On The {{ job.Created_Date }}</p>
+            <a href="{% url 'edit_job' JobID=job.JobID %}" class="btn btn-primary">Edit Job</a>
         </div>
     </div>
     {% endfor %}

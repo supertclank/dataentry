@@ -1,73 +1,80 @@
 from django.shortcuts import get_object_or_404, redirect, render
-from django.http import HttpResponse, HttpResponseBadRequest
+from django.views.generic.edit import CreateView
+from django.http import HttpResponse
 from django.template import loader
 from models.models import Job, Document, User
 from django.views.generic.edit import CreateView
-
-
 
 def index(request):
     return redirect('registration\login.html')
 
 def dashboard(request):
-    template = loader.get_template('dashboard.html')
-    context = {}
-    return HttpResponse(template.render(context, request))  
+    user_count = User.objects.count()
+    document_count = Document.objects.count()
+    job_count = Job.objects.count()
+
+    context = {'user_count': user_count, 'document_count': document_count, 'job_count': job_count}
+    return render(request, 'dashboard.html', context)
 
 def my_account(request):
-    template = loader.get_template('my_account.html')
-    context = {}
-    return HttpResponse(template.render(context, request))
+    return render(request, 'my_account.html')
 
-def manage_employees(request):
-    employee_list = User.objects.all()
+def manage_users(request):
+    user_list = User.objects.all()
 
-    # Filtering logic
     if request.method == 'GET':
         first_name = request.GET.get('first_name')
         last_name = request.GET.get('last_name')
         email = request.GET.get('email')
 
         if first_name:
-            employee_list = employee_list.filter(First_Name__icontains=first_name)
+            user_list = user_list.filter(First_Name__icontains=first_name)
         if last_name:
-            employee_list = employee_list.filter(Last_Name__icontains=last_name)
+            user_list = user_list.filter(Last_Name__icontains=last_name)
         if email:
-            employee_list = employee_list.filter(Email_address__icontains=email)
+            user_list = user_list.filter(Email_address__icontains=email)
+            
+    context = {'user_list': user_list}
+    return render(request, 'manage_employees.html', context)
 
-    context = {'employee_list': employee_list}
-    template = loader.get_template('manage_employees.html')
-    return HttpResponse(template.render(context, request))
+def edit_user(request, UserID):
+    user = get_object_or_404(User, UserID=UserID)
+    return render(request, 'edit_employee.html', {'user': user})
 
-def edit_employee(request, UserID):
-    employee = get_object_or_404(User, UserID=UserID)
-    return render(request, 'edit_employee.html', {'employee': employee})
-
-def update_employee(request, UserID):
-    employee = get_object_or_404(User, UserID=UserID)
+def update_user(request, UserID):
     if request.method == 'POST':
-        form = EmployeeForm(request.POST, instance=employee)
-        if form.is_valid():
-            form.save()
-            return redirect('manage_employees')
-    else:
-        form = EmployeeForm(instance=employee)
-    return render(request, 'edit_employee.html', {'form': form})
+        user = User.objects.get(UserID=UserID)
+        user.username = request.POST['username']
+        user.first_name = request.POST['first_name']
+        user.last_name = request.POST['last_name']
+        user.birthdate = request.POST['birthdate']
+        user.Address_One = request.POST['address_one']
+        user.Address_Two = request.POST['address_two']
+        user.City = request.POST['city']
+        user.County = request.POST['county']
+        user.Postcode = request.POST['postcode']
+        user.email = request.POST['email']
+        user.Contact_Number = request.POST['contact_number']
+        user.password = request.POST['password']
+        user.save()
+        return redirect('manage_users')
 
-def delete_employee(request, UserID):
+
+def delete_user(request, UserID):
+    user = get_object_or_404(User, UserID=UserID)
     if request.method == 'POST':
-        employee = get_object_or_404(User, UserID=UserID)
-        employee.delete()
-        return redirect('manage_employees')
+        user.delete()
+        return redirect('manage_users')
 
-class NewEmployee(CreateView):
+class NewUser(CreateView):
     model = User
     template_name = 'new_employee.html'
-    fields = ['First_Name', 'Last_Name', 'DOB', 'Address_One', 'Address_Two', 'City', 'County', 'Postcode', 'Email_address', 'Contact_Number']
+    fields = ['username', 'first_name', 'last_name', 'birthdate', 'Address_One', 'Address_Two', 'City', 'County', 'Postcode', 'email', 'Contact_Number']
     
     def form_valid(self, form):
         self.object = form.save()
-        return redirect('manage_employees')
+        return redirect('manage_users')
+
 
 def manage_contracts(request):
     return HttpResponse()

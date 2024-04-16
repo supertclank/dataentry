@@ -1,16 +1,16 @@
 {% extends "master.html" %}
 
 {% block title %}
-  Manage Employees
+  Manage Users
 {% endblock %}
 
 {% block content %}
 <div class="container center-container mt-3">
     <div class="row mx-3">
-        <h1 class="text-start col-8">Manage Employees</h1>
+        <h1 class="text-start col-8">Manage Users</h1>
         <div class="col-4 d-flex justify-content-end">
-            <a href="{% url 'new_employee' %}">
-                <button type="button" class="btn btn-primary me-2">Add New Employee</button>
+            <a href="{% url 'new_user' %}">
+                <button type="button" class="btn btn-primary me-2">Add New User</button>
             </a>
             <button type="button" class="btn btn-primary pe-2" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Filter</button>
         </div>
@@ -19,31 +19,23 @@
         <div class="card card-body">
             <form id="filterForm">
                 <div class="mb-3">
-                    <label for="employeeFirstNameInput" class="form-label">First Name</label>
-                    <input type="text" class="form-control" id="employeeFirstNameInput" name="first_name" placeholder="Enter First Name">
+                    <label for="userFirstNameInput" class="form-label">First Name</label>
+                    <input type="text" class="form-control" id="userFirstNameInput" name="first_name" placeholder="Enter First Name">
                 </div>
 
                 <div class="mb-3">
-                    <label for="employeeLastNameInput" class="form-label">Last Name</label>
-                    <input type="text" class="form-control" id="employeeLastNameInput" name="last_name" placeholder="Enter Last Name">
+                    <label for="userLastNameInput" class="form-label">Last Name</label>
+                    <input type="text" class="form-control" id="userLastNameInput" name="last_name" placeholder="Enter Last Name">
                 </div>
 
                 <div class="mb-3">
-                    <label for="employeeEmailInput" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="employeeEmailInput" name="email" placeholder="Enter Email">
+                    <label for="userEmailInput" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="userEmailInput" name="email" placeholder="Enter Email">
                 </div>
 
                 <div class="mb-3">
-                    <label for="employeeContactInput" class="form-label">Contact Number</label>
-                    <input type="text" class="form-control" id="employeeContactInput" name="contact_number" placeholder="Enter Contact Number">
-                </div>
-
-                <div class="mb-3">
-                    <label for="employeeJobInput" class="form-label">Job</label>
-                    <select class="form-select" id="employeeJobInput" name="job">
-                        <option value="" selected>Choose...</option>
-                        <!-- Add options dynamically here based on available jobs -->
-                    </select>
+                    <label for="userContactInput" class="form-label">Contact Number</label>
+                    <input type="text" class="form-control" id="userContactInput" name="contact_number" placeholder="Enter Contact Number">
                 </div>
 
                 <button type="submit" class="btn btn-primary">Apply Filter</button>
@@ -53,17 +45,16 @@
     </div>
 </div>
 
-<div id="employeeList">
-    {% for employee in employee_list %}
-    <div class="employee-card card container my-4">
+<div id="userList">
+    {% for user in user_list %}
+    <div class="user-card card container my-4">
         <div class="card-header">
-            {{ employee.First_Name }} {{ employee.Last_Name }}
+        {{user.UserID}} | {{ user.first_name }} {{ user.last_name }}
         </div>
         <div class="card-body">
-            <p class="card-text">Email: {{ employee.Email_address }}</p>
-            <p class="card-text">Contact Number: {{ employee.Contact_Number }}</p>
-            <!-- Add more details or actions as needed -->
-            <a href="{% url 'edit_employee' EmployeeID=employee.UserID %}" class="btn btn-primary">Edit Employee</a>
+            <p class="card-text">Email: {{ user.email }}</p>
+            <p class="card-text">Contact Number: {{ user.Contact_Number }}</p>
+            <a href="{% url 'edit_user' UserID=user.UserID %}" class="btn btn-primary">Edit User</a>
         </div>
     </div>
     {% endfor %}
