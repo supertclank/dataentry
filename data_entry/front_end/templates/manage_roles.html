@@ -1,0 +1,74 @@
+{% extends "master.html" %}
+
+{% block title %}
+  Manage Roles
+{% endblock %}
+
+{% block content %}
+<div class="container center-container mt-3">
+    <div class="row mx-3">
+        <h1 class="text-start col-8">Manage Roles</h1>
+        <div class="col-4 d-flex justify-content-end">
+            <a href="{% url 'new_role' %}">
+                <button type="button" class="btn btn-primary me-2">Add New Role</button>
+            </a>
+            <button type="button" class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Filter</button>
+        </div>
+    </div>
+
+    <div class="collapse my-1" id="collapseExample">
+        <div class="card card-body">
+            <form id="filterForm" method="get">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="roleNameInput" class="form-label">Role Name</label>
+                    <input type="text" class="form-control" id="roleNameInput" name="Role_name" placeholder="Enter Role Name">
+                </div>
+    
+                <div class="mb-3">
+                    <label for="roleDescriptionInput" class="form-label">Role Description</label>
+                    <input type="text" class="form-control" id="roleDescriptionInput" name="Role_description" placeholder="Enter Role Description">
+                </div>
+    
+                <div class="mb-3">
+                    <label for="securityPermissionsInput" class="form-label">Security Permissions</label>
+                    <select class="form-control" id="securityPermissionsInput" name="Security_Permissions">
+                        <option value="">Select</option>
+                        <option value="true">True</option>
+                        <option value="false">False</option>
+                    </select>
+                </div>
+    
+                <div class="mb-3">
+                    <label for="documentPermissionsInput" class="form-label">Document Permissions</label>
+                    <select class="form-control" id="documentPermissionsInput" name="Document_Permissions">
+                        <option value="">Select</option>
+                        <option value="true">True</option>
+                        <option value="false">False</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Apply Filter</button>
+                <button type="reset" class="btn btn-danger">Reset Filter</button>
+            </form>
+        </div>
+    </div>
+    
+    
+
+    <div id="roleList">
+        {% for role in role_list %}
+        <div class="user-card card container my-4">
+            <div class="card-header">
+                {{ role.RoleID }} | {{ role.Name }}
+            </div>
+            <div class="card-body">
+                <p class="card-text">Description: {{ role.Description }}</p>
+                <p class="card-text">Security Permissions: {{ role.Security_Permissions }}</p>
+                <p class="card-text">Document Permissions: {{ role.Document_Permissions }}</p>
+                <a href="{% url 'edit_role' RoleID=role.RoleID %}" class="btn btn-primary">Edit Role</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

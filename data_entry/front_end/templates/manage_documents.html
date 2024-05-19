@@ -46,7 +46,7 @@
             {{ document.Name }}
         </div>
         <div class="card-body">
-            <h5 class="card-title">{{ document.Description }}</h5>
+            <p class="card-title">{{ document.Description }}</p>
             <p class="card-text">Created On: {{ document.Created_Date }}</p>
             <a href="{% url 'edit_document' DocumentID=document.DocumentID %}" class="btn btn-primary">Edit Document</a>
         </div>

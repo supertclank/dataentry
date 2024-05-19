@@ -12,11 +12,18 @@
             <div class="card my-4">
                 <div class="card-body">
                     <h2>Edit Employee</h2>
-                    <form method="POST" action="{% url 'update_user' user.UserID %}">
+                    <form method="POST" action="{% url 'update_user' user.UserID %}" enctype="multipart/form-data">
                         {% csrf_token %}
                         <div class="form-group">
-                            <label for="id_username">Username:</lable>
-                            <input type="text" name="username" id="id_username" class="form_control" value="{{ user.username }}">
+                            <label for="id_profile_image">Profile Picture:</label>
+                            <input type="file" name="profile_image" id="id_profile_image" class="form-control">
+                            {% if user.profile_image %}
+                                <img src="{{ user.profile_image.url }}" alt="Profile Image" class="mt-2" style="width: 100px; height: auto;">
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            <label for="id_username">Username:</label>
+                            <input type="text" name="username" id="id_username" class="form-control" value="{{ user.username }}">
                         </div>
                         <div class="form-group">
                             <label for="id_first_name">First Name:</label>
@@ -28,7 +35,7 @@
                         </div>
                         <div class="form-group">
                             <label for="id_dob">Date of Birth:</label>
-                            <input type="date" name="dob" id="id_dob" class="form-control" value="{{ user.birthdate }}">
+                            <input type="date" name="birthdate" id="id_dob" class="form-control" value="{{ user.birthdate }}">
                         </div>
                         <div class="form-group">
                             <label for="id_address_one">Address One:</label>
@@ -58,6 +65,16 @@
                             <label for="id_contact_number">Contact Number:</label>
                             <input type="text" name="contact_number" id="id_contact_number" class="form-control" value="{{ user.Contact_Number }}">
                         </div>
+                        <div class="form-group">
+                            <label for="id_user_contract">Employee Contract:</label>
+                            <input type="file" name="user_contract" id="id_user_contract" class="form-control">
+                           
+                            {% if user.user_contract %}
+                                <a href="{{ user.user_contract.url }}" class="btn btn-secondary my-2">View Contract</a>
+                            {% endif %}
+                        
+                        </div>
+
                         <div class="mt-2 d-flex justify-content-between">
                             <div>
                                 <button type="submit" class="btn btn-primary me-2">Save</button>

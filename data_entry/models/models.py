@@ -34,6 +34,9 @@ class User(AbstractUser):
 
     def __str__(self):
         return self.username
+    
+    profile_image = models.ImageField(upload_to='profile_images/', null=True, blank=True)
+    user_contract = models.FileField(upload_to='data_entry/documents', null=True, blank=True)
 
 class PasswordHistory(models.Model):
     UserID = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
@@ -104,6 +107,7 @@ class Document(models.Model):
     Name = models.CharField(max_length=255)
     Description = models.TextField()
     path = models.CharField(max_length=4096)
+    Document_file = models.FileField(upload_to='data_entry/', null=True, blank=True)
     Type_E = models.IntegerField(default=0)
 
 class DocumentCategory(models.Model):

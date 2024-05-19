@@ -1,9 +1,48 @@
 {% extends "master.html" %}
 
 {% block title %}
-  Manage Account
+  My Account
 {% endblock %}
 
 {% block content %}
-
+<div class="container center-container mt-3">
+    <h1 class="text-center">My Account</h1>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card my-4">
+                <div class="card-body">
+                    <h2>Account Information</h2>
+                    <div class="form-group">
+                        {% if user.profile_image %}
+                            <img src="{{ user.profile_image.url }}" alt="Profile Image" class="mt-2" style="width: 100px; height: auto;">
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        <label for="username">Username:</lable>
+                        <input type="text" id="username" class="form-control" value="{{ user.username }}" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="first_name">First Name:</label>
+                        <input type="text" id="first_name" class="form-control" value="{{ user.first_name }}" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="last_name">Last Name:</label>
+                        <input type="text" id="last_name" class="form-control" value="{{ user.last_name }}" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address:</label>
+                        <input type="email" id="email" class="form-control" value="{{ user.email }}" readonly>
+                    </div>
+                    <div class="mt-2 d-flex justify-content-between">
+                        <div>
+                            <a href="{% url 'my_contract'%}">
+                                <button type="submit" class="btn btn-primary me-2">My Contract</button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

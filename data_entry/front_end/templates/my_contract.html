@@ -1,0 +1,29 @@
+{% extends "master.html" %}
+
+{% block title %}
+  My Contract
+{% endblock %}
+
+{% block content %}
+<div class="container center-container mt-3">
+    <h1 class="text-center">My Contract</h1>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card my-4">
+                <div class="card-body">
+                    <h2>Contract</h2>
+                    <div class="contract-viewport">
+                        {% if user.user_contract %}
+
+                        <iframe width="800px" height="800px" frameborder="1" id="iframe_pdf" src="{{ user.user_contract.url }}"></iframe>
+
+                        {% else %}
+                            <p>No contract uploaded.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
