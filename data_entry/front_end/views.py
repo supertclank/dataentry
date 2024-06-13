@@ -132,6 +132,11 @@ def manage_documents(request):
     return HttpResponse(template.render(context, request))
 
 @login_required
+def view_document(request, DocumentID):
+    document = get_object_or_404(Document, pk=DocumentID)
+    return render(request, 'view_document.html', {'document': document})
+
+@login_required
 def edit_document(request, DocumentID):
     document = get_object_or_404(Document, DocumentID=DocumentID)
     return render(request, 'edit_documents.html', {'document': document})
@@ -161,7 +166,7 @@ def delete_document(request, DocumentID):
 
 class new_document(CreateView):
     model = Document
-    fields = ['Name', 'Description', 'path', 'Type_E']
+    fields = ['Name', 'Description', 'Document_file']
     template_name = 'new_document.html'
     
     def form_valid(self, form):

@@ -106,7 +106,6 @@ class Document(models.Model):
     Updated_Date = models.DateField(default=date.today)
     Name = models.CharField(max_length=255)
     Description = models.TextField()
-    path = models.CharField(max_length=4096)
     Document_file = models.FileField(upload_to='data_entry/', null=True, blank=True)
     Type_E = models.IntegerField(default=0)
 

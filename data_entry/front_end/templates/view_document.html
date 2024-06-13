@@ -1,0 +1,28 @@
+{% extends "master.html" %}
+
+{% block title %}
+  View Document
+{% endblock %}
+
+{% block content %}
+<div class="container center-container mt-3">
+    <a href={% url 'manage_documents' %} class="btn btn-primary">Back</a>
+    <h1 class="text-center">View Document</h1>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card my-4">
+                <div class="card-body">
+                    <h2>Document</h2>
+                    <div class="Document-viewport">
+                        {% if document.Document_file %}
+                            <iframe width="800px" height="800px" frameborder="1" id="iframe_pdf" src="{{ document.Document_file.url }}"></iframe>
+                        {% else %}
+                            <p>No Document uploaded.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

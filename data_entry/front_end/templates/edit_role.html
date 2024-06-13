@@ -12,24 +12,24 @@
             <div class="card my-4">
                 <div class="card-body">
                     <h2>Edit Role</h2>
-                    <form method="POST" action="{% url 'update_role' Role.RoleID %}" enctype="multipart/form-data">
+                    <form method="POST" action="{% url 'update_role' role.RoleID %}" enctype="multipart/form-data">
                         {% csrf_token %}
                         <div class="form-group">
                             <label for="id_name">Name:</label>
-                            <input type="text" name="name" id="id_rolename" class="form-control" value="{{ Role.Name }}">
+                            <input type="text" name="Name" id="id_name" class="form-control" value="{{ role.Name }}">
                         </div>
                         <div class="form-group">
                             <label for="id_description">Description:</label>
-                            <input type="text" name="Description" id="id_description" class="form-control" value="{{ Role.Description }}">
+                            <input type="text" name="Description" id="id_description" class="form-control" value="{{ role.Description }}">
                         </div>
                         <div class="form-group">
                             <label for="id_security_permissions">Security Permissions:</label>
-                            <input type="text" name="Security_Permissions" id="id_security_permissions" class="form-control" value="{{ Role.Security_Permissions }}">
+                            <input type="text" name="Security_Permissions" id="id_security_permissions" class="form-control" value="{{ role.Security_Permissions }}">
                         </div>
                         <div class="form-group">
                             <label for="id_document_permissions">Document Permissions:</label>
-                            <input type="text" name="Document_Permissions" id="id_document_permissions" class="form-control" value="{{ Role.Document_Permissions }}">
-                        </div>                      
+                            <input type="text" name="Document_Permissions" id="id_document_permissions" class="form-control" value="{{ role.Document_Permissions }}">
+                        </div>
                         
                         <div class="mt-2 d-flex justify-content-between">
                             <div>
@@ -68,4 +68,3 @@
     </div>
 </div>
 {% endblock %}
-

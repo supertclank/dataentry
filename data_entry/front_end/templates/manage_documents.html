@@ -33,7 +33,7 @@
                     <input type="date" class="form-control" id="dateInput" name="date">
                 </div>
                 <button type="submit" class="btn btn-primary">Apply Filter</button>
-                <button type="submit" class="btn btn-danger">Reset Filter</button>
+                <button type="reset" class="btn btn-danger">Reset Filter</button>
             </form>
         </div>
     </div>
@@ -49,6 +49,11 @@
             <p class="card-title">{{ document.Description }}</p>
             <p class="card-text">Created On: {{ document.Created_Date }}</p>
             <a href="{% url 'edit_document' DocumentID=document.DocumentID %}" class="btn btn-primary">Edit Document</a>
+            {% if document.Document_file %}
+            <a href="{% url 'view_document' DocumentID=document.DocumentID %}" class="btn btn-primary">View Document</a>
+            {% else %}
+                <p>No Document uploaded.</p>
+            {% endif %}
         </div>
     </div>
     {% endfor %}
